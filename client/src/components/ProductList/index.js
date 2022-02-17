@@ -1,74 +1,80 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useQuery } from '@apollo/react-hooks';
-
-import ProductItem from '../ProductItem';
-import { QUERY_PRODUCTS } from '../../utils/queries';
+import { useSelector, useDispatch } from 'react-redux';
 import { UPDATE_PRODUCTS } from '../../utils/actions';
+import { QUERY_PRODUCTS } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
-import spinner from '../../assets/spinner.gif'
+import spinner from '../../assets/spinner.gif';
+import ProductItem from '../ProductItem';
 
 function ProductList() {
-    const dispatch = useDispatch();
-    const state = useSelector(state => state);
+  const state = useSelector((state) => {
+    return state;
+  });
+  const dispatch = useDispatch();
 
-    const { currentCategory } = state;
-    const { loading, data } = useQuery(QUERY_PRODUCTS);
+  const { currentCategory } = state;
 
-    useEffect(() => {
-        if (data) {
-            dispatch({
-                type: UPDATE_PRODUCTS,
-                products: data.products
-            });
+  const { loading, data } = useQuery(QUERY_PRODUCTS);
 
-            // save to indexedDB
-            data.products.forEach(product => {
-                idbPromise('products', 'put', product);
-            });
-        } else if (!loading) {
-            // if offline, get data from 'products' store
-            idbPromise('products', 'get').then(products => {
-                // use retrieved data to set global state for offline browsing
-                dispatch({
-                    type: UPDATE_PRODUCTS,
-                    products: products
-                })
-            })
-        }
-    }, [data, loading, dispatch]);
+  useEffect(() => {
+    // if there's data to be stored
+    if (data) {
+      // let's store it in the global state object
+      dispatch({
+        type: UPDATE_PRODUCTS,
+        products: data.products,
+      });
 
-    function filterProducts() {
-        if (!currentCategory) {
-            return state.products;
-        }
+      // but let's also take each product and save it to IndexedDB using the helper function
+      data.products.forEach((product) => {
+        idbPromise('products', 'put', product);
+      });
+      // add else if to check if `loading` is undefined in `useQuery()` Hook
+    } else if (!loading) {
+      // since we're offline, get all of the data from the `products` store
+      idbPromise('products', 'get').then((products) => {
+        // use retrieved data to set global state for offline browsing
+        dispatch({
+          type: UPDATE_PRODUCTS,
+          products: products,
+        });
+      });
+    }
+  }, [data, loading, dispatch]);
 
-        return state.products.filter(product => product.category._id === currentCategory);
-    };
+  function filterProducts() {
+    if (!currentCategory) {
+      return state.products;
+    }
 
-    return (
-        <div className='my-2'>
-            <h2>Our Products:</h2>
-            {state.products.length ? (
-                <div className='flex-row'>
-                    {filterProducts().map(product => (
-                        <ProductItem
-                        key= {product._id}
-                        _id={product._id}
-                        image={product.image}
-                        name={product.name}
-                        price={product.price}
-                        quantity={product.quantity}
-                        />
-                    ))}
-                </div>
-            ) : (
-                <h3>You haven't added any products yet!</h3>
-            )}
-            { loading ? 
-            <img src={spinner} alt='loading' />: null}
-        </div>
+    return state.products.filter(
+      (product) => product.category._id === currentCategory
     );
+  }
+
+  return (
+    <div className="my-2">
+      <h2>Our Products:</h2>
+      {state.products.length ? (
+        <div className="flex-row">
+          {filterProducts().map((product) => (
+            <ProductItem
+              key={product._id}
+              _id={product._id}
+              image={product.image}
+              name={product.name}
+              price={product.price}
+              quantity={product.quantity}
+            />
+          ))}
+        </div>
+      ) : (
+        <h3>You haven't added any products yet!</h3>
+      )}
+      {loading ? <img src={spinner} alt="loading" /> : null}
+    </div>
+  );
 }
 
 export default ProductList;
