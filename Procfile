@@ -1,4 +1,1 @@
-web: npm install
-web: npm seed
-web: npm start
-
+web: npm install & npm seed & npm start
