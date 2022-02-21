@@ -1,1 +1,1 @@
-web: npm heroku_postbuild
+web: npm heroku-postbuild
