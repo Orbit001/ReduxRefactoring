@@ -1,75 +1,17 @@
-# Challenge-22-Redux-Store
-
-
-
-## Summary
-
-
-
-## Tools Used
-
-* JavaScript
-* Node.js
-* Express
-* React
-* Redux
-* Stripe
-* Apollo Server
-* Graphql
-* Mongodb
-* Mongoose
-* Dotenv
-* Heroku
-
-
-
-# Snapshot
-
-[![N/A]()]
-
-
-
-
-# Table of Contents 
-* [Summary](#Summary)
-* [Tools Used](#Tools)
-* [Snapshot](#Snapshot)
-* [Installation & Database SetUp](#Installation)
-* [Heroku](#Heroku)
-* [License](#license)
-* [Contributing](#contributing)
-* [Tests](#tests)
-* [Questions](#questions)
-
-# Installation & Database SetUp
-* To use this app npm init has to be called to create your package.json file.
-* The following necessary Npm dependencies must be installed to run the application properly: the needed dependencies will be found on the package.json file.
-* To properly install the database you must create at cluster on Mongodb atlas.
-* Run "npm run seed" to properly introduce seeded items"
-* Run "npm start" for the port to start listening with mongoose.
-* This app is deployed on Heroku
-
-
-
-
-# Heroku
-
-
-(https://reduxstore1.herokuapp.com/)
-
-
-# License
-![license badge](https://img.shields.io/badge/license-MIT-brightgreen)
-
-# Contributing
-​Contributors: N/A
-
-# Tests
-N/A
-
-# Questions?
-## Please contact me:
-  * [My GitHub Profile](https://github.com/jcgom3)
-  * [My Github Project Repository](https://github.com/jcgom3/Challenge-22-Redux-Store)
-  * [My Github Deployed IO](https://jcgom3.github.io/Challenge-22-Redux-Store/)
-  * Email us at: [Jcgom3@gmail.com](mailto:Jcgom3@gmail.com) with questions or make an issue about this project.
+# Refactoring of Webshop including Redux.
+  ## Description: 
+  Intaking a base app that was using MongoDB along with Apollo, I integrated Redux to handle all data holding, conversion, and site creation.
+  ## Table of Contents
+  - [Installation](#Installation)
+  - [Usage](#Usage)
+  - [Questions](#Questions)
+  ## Installation: 
+  Simply go to the link provided and use.
+  ## Usage: 
+  To create an account, click account button.
+  ## Licensing
+  ![license](https://img.shields.io/badge/License-MIT-blue.svg)
+  [Link to Licenses](https://shields.io)
+  ## Questions
+  - If you have any questions, email me at Paul.mcd1@icloud.com
+  - Checkout my GitHub profile [here](https://github.com/Orbit001)
